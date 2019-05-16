@@ -10,4 +10,3 @@ Functions:
   
 Notes:</br>
   * No other 3rd party frames used;</br>
-  * Only native JavaScript;</br>
