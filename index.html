@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .container{
+            position:relative;
+            width:640px;
+            height:360px;
+            overflow:hidden;
+            background:red;
+            
+        }
+
+        .img-item{
+            width:640px;
+            height:360px;
+            float:left;
+        }
+
+        .wrapper{
+            position:absolute;
+            width:4480px;
+            height:360px;
+            z-index:1;
+        }
+
+        .container .button{
+            z-index:2;
+            position:absolute;
+            right:245px;
+            bottom:20px;
+            width:150px;
+            height:10px;
+        }
+        .container .button span {
+            margin-left:5px;
+            display:inline-block;
+            height:20px;
+            width:20px;
+            background:white;
+            text-align:center;
+            cursor:pointer;
+            border-radius:50%;
+        }
+
+        .container .button span.on{
+            background:red;
+        }
+
+        .container .arrow{
+
+            position:absolute;
+            display:inline-block;
+            width:50px;
+            height:50px;
+            top:35%;
+            z-index:2;
+
+        }
+        .arrow.arrow-left{
+                left:0px;
+            }
+        .arrow.arrow-right{
+                right:0px;
+            }
+        
+        .arrow img{
+            max-width:100%;
+            height:auto;
+            visibility:hidden;
+        }
+
+        .container:hover .arrow img{
+            visibility:visible;
+        }
+
+        .arrow-right img{
+            float:right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div id="wrapper" class="wrapper">
+            <img class="img-item" id="item-1" src="./img/1.jpeg" alt="">
+            <img class="img-item" id="item-2" src="./img/2.jpeg" alt="">
+            <img class="img-item" id="item-3" src="./img/3.jpeg" alt="">
+            <img class="img-item" id="item-4" src="./img/4.jpeg" alt="">
+            <img class="img-item" id="item-5" src="./img/5.jpeg" alt="">
+        </div>
+        <div class="button">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="javascript:;" class="arrow arrow-left" id="left">
+            <img src="./img/prev.png"/>
+        </a>
+        <a href="javascript:;" class="arrow arrow-right" id="right">
+            <img src="./img/next.png"/>
+        </a>
+    </div>
+    <script>
+        var movement=0,
+            timer,
+            index=0,
+            testNext,
+            testPrev,
+            prev=document.getElementById('left'),
+            next=document.getElementById("right"),
+            wrap=document.getElementById("wrapper"),
+            container=document.getElementById("container"),
+            dots=document.getElementsByTagName("span");
+        
+        function testNext(){
+            console.log("testNext!")
+            if(movement==(-2560)){
+                movement=0;
+            }else return;
+        }
+
+        function testPrev(){
+            console.log("testPrev!")
+            if(movement==0){
+                movement=(-3200);
+            }
+            else return;
+        }
+        
+        function prevPic(){
+            testPrev();
+            console.log("arrow-left clicked!");
+            movement=movement+640
+            wrap.style.left=movement+'px';
+            console.log(movement);
+            index--;
+            if(index < 0){
+                index = 4;
+            }
+            showCurrentDot();
+
+            console.log("index="+index);
+            
+        }
+        prev.onclick=prevPic;
+
+        function nextPic(){
+            testNext();
+            console.log("arrow-right clicked!");
+            movement=movement-640
+            wrap.style.left=movement+'px';
+            console.log(movement);
+            index++;
+            if(index > 4){
+                index = 0;
+            }
+            showCurrentDot();
+
+            console.log("index="+index);
+        }
+        next.onclick=nextPic;
+
+        
+
+        var autoPlay=function(){
+            timer=setInterval(function(){nextPic();},2000);
+        }
+
+        container.onmouseenter=function(){
+            clearInterval(timer);
+        }
+        container.onmouseleave=function(){
+            autoPlay();
+        }
+        autoPlay();
+
+        function showCurrentDot(){
+            
+            for(let i=0;i<dots.length;i++){
+                dots[i].className="";
+            }
+            dots[index].className="on";
+            console.log("on")
+        }
+        showCurrentDot();
+
+        function clickDot(){
+            for (let i=0;i<dots.length;i++){
+                dots[i].onclick=function(){
+                    index=i;
+                    wrap.style.left=(-640)*index+"px";
+                    console.log('clickDot:i='+i )
+                    console.log('clickDot:index='+index )
+                    showCurrentDot();
+                }
+            }
+        }
+
+        clickDot();
+
+        
+
+
+
+    </script>
+</body>
+</html>
