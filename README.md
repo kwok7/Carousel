@@ -8,6 +8,6 @@ Functions:
   Dots on the bottom to show the index of pictures;</br>
   Click dots to choose specific picture;</br>
   
-Notes:
+Notes:</br>
   No other 3rd party frames used;</br>
   Only native JavaScript;</br>
