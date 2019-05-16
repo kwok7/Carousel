@@ -4,7 +4,7 @@
 
 Functions:
 
-  Arrows to switch to previous or next pictures;</br>
+  * Arrows to switch to previous or next pictures;</br>
   Dots on the bottom to show the index of pictures;</br>
   Click dots to choose specific picture;</br>
   
